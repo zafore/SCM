@@ -1,0 +1,33 @@
+﻿https://blog.tekspace.io/code-first-multiple-db-context-migration/
+
+Add-Migration InitialDbMigration -Context CommonsDbContext -o Migrations/Commons
+Update-Database -Context CommonsDbContext
+
+
+Add-Migration InitialDbMigration -Context IdentityDbContext -o Identity/Migrations
+Update-Database -Context IdentityDbContext
+
+
+Add-Migration updateTableAssetsType -Context NamaaDbContext -o Migrations
+Update-Database -Context NamaaDbContext
+//clean database from migration
+Update-Database -Migration:0 -Context NamaaDbContext
+Remove-Migration  -Context NamaaDbContext
+Add-Migration InitialDbMigration -Context NamaaDbContext -o Migrations
+Update-Database  -Context NamaaDbContext
+
+
+//mounir
+Update-Database -Context NamaaDbContext 20190730123334_updateTableAssetsType_remove_IsNationalManufacture
+Remove-Migration  -Context NamaaDbContext
+EntityFrameworkCore\
+Add-Migration CreateWorkFlow -Context NamaaDbContext -o Migrations
+Update-Database -Context NamaaDbContext
+Scaffold-DbContext 'Server=.;Database=newNamaa;Persist Security Info=false;user id=sa; password=123123123;' Microsoft.EntityFrameworkCore.SqlServer -o '.\Entities\lookup' -schema lookup
+//endmounir
+Scaffold-DbContext 'Name=Pcon'; password=123123123;' Microsoft.EntityFrameworkCore.SqlServer -o '.\Entities\lookup' -schema lookup
+Scaffold-DbContext 'Name=Pcon' Microsoft.EntityFrameworkCore.SqlServer -o 'Entities' -f
+
+
+Add-Migration UpdateUser -Context IdentityDbContext -o Identity/Migrations
+

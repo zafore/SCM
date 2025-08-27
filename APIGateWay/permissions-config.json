@@ -1,0 +1,67 @@
+{
+  "RoutePermissions": {
+    "/api/admin/users": {
+      "GET": ["Admin", "SuperAdmin"],
+      "POST": ["Admin", "SuperAdmin"],
+      "PUT": ["Admin", "SuperAdmin"],
+      "DELETE": ["SuperAdmin"]
+    },
+    "/api/admin/roles": {
+      "GET": ["Admin", "SuperAdmin"],
+      "POST": ["SuperAdmin"],
+      "PUT": ["SuperAdmin"],
+      "DELETE": ["SuperAdmin"]
+    },
+    "/api/admin/permissions": {
+      "GET": ["Admin", "SuperAdmin"],
+      "POST": ["SuperAdmin"],
+      "PUT": ["SuperAdmin"],
+      "DELETE": ["SuperAdmin"]
+    },
+    "/api/suppliers": {
+      "GET": ["Admin", "SuperAdmin", "Manager"],
+      "POST": ["Admin", "SuperAdmin", "Manager"],
+      "PUT": ["Admin", "SuperAdmin", "Manager"],
+      "DELETE": ["Admin", "SuperAdmin"]
+    },
+    "/api/offers": {
+      "GET": ["Admin", "SuperAdmin", "Manager"],
+      "POST": ["Admin", "SuperAdmin", "Manager"],
+      "PUT": ["Admin", "SuperAdmin", "Manager"],
+      "DELETE": ["Admin", "SuperAdmin"]
+    },
+    "/api/lookup": {
+      "GET": ["Admin", "SuperAdmin", "Manager", "User"]
+    },
+    "/api/inventory": {
+      "GET": ["Admin", "SuperAdmin", "Manager", "User"],
+      "POST": ["Admin", "SuperAdmin", "Manager"],
+      "PUT": ["Admin", "SuperAdmin", "Manager"],
+      "DELETE": ["Admin", "SuperAdmin"]
+    },
+    "/api/orders": {
+      "GET": ["Admin", "SuperAdmin", "Manager", "User"],
+      "POST": ["Admin", "SuperAdmin", "Manager", "User"],
+      "PUT": ["Admin", "SuperAdmin", "Manager"],
+      "DELETE": ["Admin", "SuperAdmin"]
+    },
+    "/api/payments": {
+      "GET": ["Admin", "SuperAdmin", "Manager"],
+      "POST": ["Admin", "SuperAdmin", "Manager"],
+      "PUT": ["Admin", "SuperAdmin", "Manager"],
+      "DELETE": ["Admin", "SuperAdmin"]
+    },
+    "/api/accounting": {
+      "GET": ["Admin", "SuperAdmin", "Manager"],
+      "POST": ["Admin", "SuperAdmin", "Manager"],
+      "PUT": ["Admin", "SuperAdmin", "Manager"],
+      "DELETE": ["Admin", "SuperAdmin"]
+    }
+  },
+  "RoleHierarchy": {
+    "SuperAdmin": ["Admin", "Manager", "User"],
+    "Admin": ["Manager", "User"],
+    "Manager": ["User"],
+    "User": []
+  }
+}

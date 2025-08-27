@@ -1,0 +1,269 @@
+{
+  "Routes": [
+    // ----------------------------------------------------------------------
+    // Identity Microservice Routes (Port: 7133)
+    // No authentication required for /register and /login routes.
+    // ----------------------------------------------------------------------
+    {
+      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7133
+        }
+      ],
+      "UpstreamPathTemplate": "/api/identity/{everything}",
+      "UpstreamHttpMethod": [ "POST" ] // For /register and /login
+    },
+    // For other authenticated Identity operations (e.g., getting user details)
+    {
+      "DownstreamPathTemplate": "/api/users/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/identity/users/{everything}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "GatewayAuthenticationKey", // Use the JWT Bearer scheme configured in Program.cs
+      //  "AllowedScopes": [] // No specific scopes required for general user access
+      //}
+    },
+
+    // ----------------------------------------------------------------------
+    // Customer Microservice Routes (Port: 7266)
+    // Requires authentication (Bearer token)
+    // ----------------------------------------------------------------------
+    {
+      "DownstreamPathTemplate": "/api/Customer/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7266
+        }
+      ],
+      "UpstreamPathTemplate": "/api/GetCustomers/{everything}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        //"AuthenticationProviderKey": "GatewayAuthenticationKey", // <-- Must match Program.cs
+        "AllowedScopes": []
+      }
+    },
+
+
+    // ----------------------------------------------------------------------
+    // Admin Microservice Routes (Port: 7266)
+    // Requires authentication (Bearer token) with Admin role
+    // ----------------------------------------------------------------------
+    {
+      "UpstreamPathTemplate": "/api/admin/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/admin/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7266
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin,SuperAdmin"
+      }
+    },
+
+    // ----------------------------------------------------------------------
+    // Suppliers Microservice Routes (Port: 7051)
+    // Requires authentication (Bearer token) with appropriate role
+    // ----------------------------------------------------------------------
+    {
+      "UpstreamPathTemplate": "/api/suppliers/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/suppliers/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7051
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin,SuperAdmin,Manager"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/offers/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/offers/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7051
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin,SuperAdmin,Manager"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/lookup/{everything}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/lookup/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7051
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin,SuperAdmin,Manager,User"
+      }
+    },
+
+    // ----------------------------------------------------------------------
+    // Inventory Microservice Routes (Port: 5003)
+    // Requires authentication (Bearer token) with appropriate role
+    // ----------------------------------------------------------------------
+    {
+      "UpstreamPathTemplate": "/api/inventory/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin,SuperAdmin,Manager,User"
+      }
+    },
+
+    // ----------------------------------------------------------------------
+    // Order Microservice Routes (Port: 5005)
+    // Requires authentication (Bearer token) with appropriate role
+    // ----------------------------------------------------------------------
+    {
+      "UpstreamPathTemplate": "/api/orders/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5005
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin,SuperAdmin,Manager,User"
+      }
+    },
+
+    // ----------------------------------------------------------------------
+    // Payments Microservice Routes (Port: 5007)
+    // Requires authentication (Bearer token) with appropriate role
+    // ----------------------------------------------------------------------
+    {
+      "UpstreamPathTemplate": "/api/payments/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5007
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin,SuperAdmin,Manager"
+      }
+    },
+
+    // ----------------------------------------------------------------------
+    // Accounting Microservice Routes (Port: 5009)
+    // Requires authentication (Bearer token) with appropriate role
+    // ----------------------------------------------------------------------
+    {
+      "UpstreamPathTemplate": "/api/accounting/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5009
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin,SuperAdmin,Manager"
+      }
+    },
+
+    // ----------------------------------------------------------------------
+    // Audit Routes (Internal Gateway Routes)
+    // Requires authentication (Bearer token) with appropriate role
+    // ----------------------------------------------------------------------
+    {
+      "UpstreamPathTemplate": "/api/audit/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/audit/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7034
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin,SuperAdmin,Manager"
+      }
+    }
+
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:7034" // The port Ocelot API Gateway will run on
+  }
+}

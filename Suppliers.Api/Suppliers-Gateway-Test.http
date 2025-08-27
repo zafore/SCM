@@ -1,0 +1,158 @@
+### Suppliers API Test Requests via Gateway
+
+@gatewayUrl = https://localhost:7034
+@token = your-jwt-token-here
+
+### Get All Suppliers via Gateway
+GET {{gatewayUrl}}/api/suppliers
+Authorization: Bearer {{token}}
+
+### Get Supplier by ID via Gateway
+GET {{gatewayUrl}}/api/suppliers/1
+Authorization: Bearer {{token}}
+
+### Create New Supplier via Gateway
+POST {{gatewayUrl}}/api/suppliers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "supplierName": "شركة الموردين المحدودة",
+  "phone": "+966501234567",
+  "email": "info@supplier.com",
+  "address": "الرياض، المملكة العربية السعودية",
+  "websit": "https://supplier.com",
+  "countryId": 1,
+  "supplierNote": "مورد موثوق"
+}
+
+### Update Supplier via Gateway
+PUT {{gatewayUrl}}/api/suppliers/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "supplierName": "شركة الموردين المحدودة - محدث",
+  "phone": "+966501234567",
+  "email": "info@supplier.com",
+  "address": "الرياض، المملكة العربية السعودية",
+  "websit": "https://supplier.com",
+  "countryId": 1,
+  "supplierNote": "مورد موثوق - محدث"
+}
+
+### Delete Supplier via Gateway
+DELETE {{gatewayUrl}}/api/suppliers/1
+Authorization: Bearer {{token}}
+
+### Search Suppliers via Gateway
+GET {{gatewayUrl}}/api/suppliers/search?name=شركة&email=supplier
+Authorization: Bearer {{token}}
+
+### Get Supplier Offers via Gateway
+GET {{gatewayUrl}}/api/suppliers/1/offers
+Authorization: Bearer {{token}}
+
+### Get All Offers via Gateway
+GET {{gatewayUrl}}/api/offers
+Authorization: Bearer {{token}}
+
+### Get Offer by ID via Gateway
+GET {{gatewayUrl}}/api/offers/1
+Authorization: Bearer {{token}}
+
+### Create New Offer via Gateway
+POST {{gatewayUrl}}/api/offers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "offerName": "عرض منتجات 2024",
+  "offerDescription": "عرض خاص على جميع المنتجات",
+  "supplierID": 1,
+  "offerStatusId": 1,
+  "attachmentId": null,
+  "expiryDate": "2024-12-31T23:59:59Z"
+}
+
+### Update Offer via Gateway
+PUT {{gatewayUrl}}/api/offers/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "offerName": "عرض منتجات 2024 - محدث",
+  "offerDescription": "عرض خاص على جميع المنتجات - محدث",
+  "supplierID": 1,
+  "offerStatusId": 1,
+  "attachmentId": null,
+  "expiryDate": "2024-12-31T23:59:59Z"
+}
+
+### Delete Offer via Gateway
+DELETE {{gatewayUrl}}/api/offers/1
+Authorization: Bearer {{token}}
+
+### Get Offers by Supplier via Gateway
+GET {{gatewayUrl}}/api/offers/supplier/1
+Authorization: Bearer {{token}}
+
+### Get Offers by Status via Gateway
+GET {{gatewayUrl}}/api/offers/status/1
+Authorization: Bearer {{token}}
+
+### Get Countries via Gateway
+GET {{gatewayUrl}}/api/lookup/countries
+Authorization: Bearer {{token}}
+
+### Get Currencies via Gateway
+GET {{gatewayUrl}}/api/lookup/currencies
+Authorization: Bearer {{token}}
+
+### Get Offer Statuses via Gateway
+GET {{gatewayUrl}}/api/lookup/offer-statuses
+Authorization: Bearer {{token}}
+
+### Get Payment Methods via Gateway
+GET {{gatewayUrl}}/api/lookup/payment-methods
+Authorization: Bearer {{token}}
+
+### Get Payment States via Gateway
+GET {{gatewayUrl}}/api/lookup/payment-states
+Authorization: Bearer {{token}}
+
+### Get Carriers via Gateway
+GET {{gatewayUrl}}/api/lookup/carriers
+Authorization: Bearer {{token}}
+
+### Get Shipment Types via Gateway
+GET {{gatewayUrl}}/api/lookup/shipment-types
+Authorization: Bearer {{token}}
+
+### Get Installments Types via Gateway
+GET {{gatewayUrl}}/api/lookup/installments-types
+Authorization: Bearer {{token}}
+
+### Get Items via Gateway
+GET {{gatewayUrl}}/api/lookup/items
+Authorization: Bearer {{token}}
+
+### Test Authentication - Login first
+POST {{gatewayUrl}}/api/identity/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "Test123!",
+  "role": "Manager"
+}
+
+### Test Authentication - Login
+POST {{gatewayUrl}}/api/identity/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Test123!"
+}

@@ -1,0 +1,103 @@
+### Audit System Test Requests
+
+@gatewayUrl = https://localhost:7034
+@token = your-jwt-token-here
+
+### Get Audit Statistics
+GET {{gatewayUrl}}/api/audit/statistics
+Authorization: Bearer {{token}}
+
+### Get Recent Audit Logs (Last 24 hours)
+GET {{gatewayUrl}}/api/audit/recent
+Authorization: Bearer {{token}}
+
+### Get My Audit Logs (Current User)
+GET {{gatewayUrl}}/api/audit/my-logs
+Authorization: Bearer {{token}}
+
+### Get User Audit Logs
+GET {{gatewayUrl}}/api/audit/user/user123?page=1&pageSize=20
+Authorization: Bearer {{token}}
+
+### Get Entity Audit Logs (Suppliers)
+GET {{gatewayUrl}}/api/audit/entity/Supplier?page=1&pageSize=20
+Authorization: Bearer {{token}}
+
+### Get Entity Audit Logs (Specific Supplier)
+GET {{gatewayUrl}}/api/audit/entity/Supplier?entityId=1&page=1&pageSize=20
+Authorization: Bearer {{token}}
+
+### Get Audit Logs by Date Range
+GET {{gatewayUrl}}/api/audit/date-range?startDate=2024-01-01T00:00:00Z&endDate=2024-12-31T23:59:59Z&page=1&pageSize=50
+Authorization: Bearer {{token}}
+
+### Get Audit Logs by Action (LOGIN)
+GET {{gatewayUrl}}/api/audit/action/LOGIN?page=1&pageSize=20
+Authorization: Bearer {{token}}
+
+### Get Audit Logs by Action (CREATE)
+GET {{gatewayUrl}}/api/audit/action/CREATE?page=1&pageSize=20
+Authorization: Bearer {{token}}
+
+### Get Audit Logs by Action (UPDATE)
+GET {{gatewayUrl}}/api/audit/action/UPDATE?page=1&pageSize=20
+Authorization: Bearer {{token}}
+
+### Get Audit Logs by Action (DELETE)
+GET {{gatewayUrl}}/api/audit/action/DELETE?page=1&pageSize=20
+Authorization: Bearer {{token}}
+
+### Get Specific Audit Log by ID
+GET {{gatewayUrl}}/api/audit/1
+Authorization: Bearer {{token}}
+
+### Delete Audit Log (SuperAdmin only)
+DELETE {{gatewayUrl}}/api/audit/1
+Authorization: Bearer {{token}}
+
+### Test Login (This will create an audit log)
+POST {{gatewayUrl}}/api/identity/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "Admin123!"
+}
+
+### Test Create Supplier (This will create an audit log)
+POST {{gatewayUrl}}/api/suppliers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "supplierName": "Test Supplier for Audit",
+  "email": "audit@supplier.com",
+  "phone": "+966501234567"
+}
+
+### Test Update Supplier (This will create an audit log)
+PUT {{gatewayUrl}}/api/suppliers/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "supplierName": "Updated Supplier for Audit",
+  "email": "audit@supplier.com",
+  "phone": "+966501234567"
+}
+
+### Test Delete Supplier (This will create an audit log)
+DELETE {{gatewayUrl}}/api/suppliers/1
+Authorization: Bearer {{token}}
+
+### Test View Suppliers (This will create an audit log)
+GET {{gatewayUrl}}/api/suppliers
+Authorization: Bearer {{token}}
+
+### Test View Offers (This will create an audit log)
+GET {{gatewayUrl}}/api/offers
+Authorization: Bearer {{token}}
+
+### Test View Lookup Data (This will create an audit log)
+GET {{gatewayUrl}}/api/lookup/countries
+Authorization: Bearer {{token}}

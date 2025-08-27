@@ -1,0 +1,141 @@
+### Suppliers API Test Requests
+
+@baseUrl = https://localhost:7051
+@token = your-jwt-token-here
+
+### Get All Suppliers
+GET {{baseUrl}}/api/suppliers
+Authorization: Bearer {{token}}
+
+### Get Supplier by ID
+GET {{baseUrl}}/api/suppliers/1
+Authorization: Bearer {{token}}
+
+### Create New Supplier
+POST {{baseUrl}}/api/suppliers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "supplierName": "شركة الموردين المحدودة",
+  "phone": "+966501234567",
+  "email": "info@supplier.com",
+  "address": "الرياض، المملكة العربية السعودية",
+  "websit": "https://supplier.com",
+  "countryId": 1,
+  "supplierNote": "مورد موثوق"
+}
+
+### Update Supplier
+PUT {{baseUrl}}/api/suppliers/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "supplierName": "شركة الموردين المحدودة - محدث",
+  "phone": "+966501234567",
+  "email": "info@supplier.com",
+  "address": "الرياض، المملكة العربية السعودية",
+  "websit": "https://supplier.com",
+  "countryId": 1,
+  "supplierNote": "مورد موثوق - محدث"
+}
+
+### Delete Supplier (Soft Delete)
+DELETE {{baseUrl}}/api/suppliers/1
+Authorization: Bearer {{token}}
+
+### Search Suppliers
+GET {{baseUrl}}/api/suppliers/search?name=شركة&email=supplier
+Authorization: Bearer {{token}}
+
+### Get Supplier Offers
+GET {{baseUrl}}/api/suppliers/1/offers
+Authorization: Bearer {{token}}
+
+### Get All Offers
+GET {{baseUrl}}/api/offers
+Authorization: Bearer {{token}}
+
+### Get Offer by ID
+GET {{baseUrl}}/api/offers/1
+Authorization: Bearer {{token}}
+
+### Create New Offer
+POST {{baseUrl}}/api/offers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "offerName": "عرض منتجات 2024",
+  "offerDescription": "عرض خاص على جميع المنتجات",
+  "supplierID": 1,
+  "offerStatusId": 1,
+  "attachmentId": null,
+  "expiryDate": "2024-12-31T23:59:59Z"
+}
+
+### Update Offer
+PUT {{baseUrl}}/api/offers/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "offerName": "عرض منتجات 2024 - محدث",
+  "offerDescription": "عرض خاص على جميع المنتجات - محدث",
+  "supplierID": 1,
+  "offerStatusId": 1,
+  "attachmentId": null,
+  "expiryDate": "2024-12-31T23:59:59Z"
+}
+
+### Delete Offer
+DELETE {{baseUrl}}/api/offers/1
+Authorization: Bearer {{token}}
+
+### Get Offers by Supplier
+GET {{baseUrl}}/api/offers/supplier/1
+Authorization: Bearer {{token}}
+
+### Get Offers by Status
+GET {{baseUrl}}/api/offers/status/1
+Authorization: Bearer {{token}}
+
+### Get Countries
+GET {{baseUrl}}/api/lookup/countries
+Authorization: Bearer {{token}}
+
+### Get Currencies
+GET {{baseUrl}}/api/lookup/currencies
+Authorization: Bearer {{token}}
+
+### Get Offer Statuses
+GET {{baseUrl}}/api/lookup/offer-statuses
+Authorization: Bearer {{token}}
+
+### Get Payment Methods
+GET {{baseUrl}}/api/lookup/payment-methods
+Authorization: Bearer {{token}}
+
+### Get Payment States
+GET {{baseUrl}}/api/lookup/payment-states
+Authorization: Bearer {{token}}
+
+### Get Carriers
+GET {{baseUrl}}/api/lookup/carriers
+Authorization: Bearer {{token}}
+
+### Get Shipment Types
+GET {{baseUrl}}/api/lookup/shipment-types
+Authorization: Bearer {{token}}
+
+### Get Installments Types
+GET {{baseUrl}}/api/lookup/installments-types
+Authorization: Bearer {{token}}
+
+### Get Items
+GET {{baseUrl}}/api/lookup/items
+Authorization: Bearer {{token}}
+
+### Health Check
+GET {{baseUrl}}/health
